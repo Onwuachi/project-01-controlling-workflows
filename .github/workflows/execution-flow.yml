@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'development'
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -34,8 +40,8 @@ jobs:
         run: npm ci
       - name: Test code
         id: run-tests 
-      - run: npm run test -- --reporter=verbose   # run: npm run test
-      - name: Upload test report  # ommitted  steps.run-tests.outcome == 'failure'
+        run: npm run test -- --reporter=verbose   # run: npm run test
+      - name: Upload test report  # ommitted {{}} ->  steps.run-tests.outcome == 'failure'
         if: ${{ steps.run-tests.outcome == 'failure' }}  
         uses: actions/upload-artifact@v4
         with:
