@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Optimzed Caching on Website Deployment
 on:
   push:
     branches:
